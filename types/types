@@ -1,0 +1,7 @@
+export type userType={
+    useName:string;
+    email:string;
+    password:string;
+    avatar:string;
+
+}
