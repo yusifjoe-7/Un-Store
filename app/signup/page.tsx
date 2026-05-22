@@ -114,7 +114,7 @@ router.push('/')
                   onChange={(e) => setName(e.target.value)}
                   placeholder="John Doe"
                   required
-                  className={`${nameError&&"border-destructive" }shake-once w-full h-11 rounded-xl bg-input border border-border px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200`}
+                  className={`${nameError&&"border-destructive" }shake-once w-full h-11 rounded-md bg-input border border-border px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200`}
                 />
                {nameError&& <span className="text-xs text-destructive">user name should be between 3-15</span>}
               </div>
@@ -128,7 +128,7 @@ router.push('/')
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
                   required
-                  className="w-full h-11 rounded-xl bg-input border border-border px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200"
+                  className="w-full h-11 rounded-md bg-input border border-border px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200"
                 />
                 {emailError&& <span className="text-xs text-destructive">this email is already exist</span>}
              
@@ -144,7 +144,7 @@ router.push('/')
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="***********"
                     required
-                   className={`w-full h-11 rounded-xl bg-input border ${passwordError ? "border-destructive" : "border-border"} px-4 pr-11 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200`}
+                   className={`w-full h-11 rounded-md bg-input border ${passwordError ? "border-destructive" : "border-border"} px-4 pr-11 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200`}
                     />
                   
                   <button
@@ -181,7 +181,7 @@ router.push('/')
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="***********"
                     required
-                    className={`w-full h-11 rounded-xl bg-input border px-4 pr-11 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 ${
+                    className={`w-full h-11 rounded-md bg-input border px-4 pr-11 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 ${
                       !passwordsMatch
                         ? "border-destructive focus:ring-destructive/40"
                         : "border-border focus:ring-ring"
@@ -238,7 +238,7 @@ router.push('/')
               <button
                 type="button"
                 disabled={loading || !passwordsMatch}
-                className="w-full h-11 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 active:scale-[0.98] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full h-11 rounded-md bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 active:scale-[0.98] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
               onClick={handleSubmit}
               >
                 {loading ? (

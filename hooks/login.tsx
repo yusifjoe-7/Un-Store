@@ -28,6 +28,9 @@ type prop = {
 const API =
   "https://69fe01f98c70b15fa3ca1479.mockapi.io/api/v1/users";
 
+const CartApi =
+  "https://69fe01f98c70b15fa3ca1479.mockapi.io/api/v1/carts";  
+
 const checkEmail = async (email: string) => {
   const res = await fetch(`${API}?email=${email}`);
   const data = await res.json();
@@ -49,23 +52,33 @@ console.log(2)
     }
 
     // create user 
-    const res = await fetch(API, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name:name,
-        email:email,
-        password:password,
-      }),
-    });
-    console.log(3)
-    const data = await res.json();
-    localStorage.setItem('login', data)
-    
+const res = await fetch(API, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ name, email, password }),
+});
 
-    return "done";
+if (!res.ok) throw new Error(`Signup failed: ${res.status}`);
+
+// ✅ Parse BEFORE accessing data fields
+const data = await res.json();
+
+// ✅ Now userId is available
+const resC = await fetch(CartApi, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    userId: data.id,   // was: res.id ❌
+    items: [],
+  }),
+});
+
+if (!resC.ok) throw new Error(`Cart creation failed: ${resC.status}`);
+
+// ✅ Serialize object to string
+localStorage.setItem("login", JSON.stringify(data));  // was: data ❌
+
+return "done";
   } catch (error) {
     console.log(error);
     return "error";

@@ -390,4 +390,16 @@
     .shadow-3 { animation: shadowPulse3 3.5s ease-in-out infinite 0.8s; }
     .shadow-4 { animation: shadowPulse2 3s ease-in-out infinite 1.2s; }
 
-   
+  
+    
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

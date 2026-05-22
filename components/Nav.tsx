@@ -6,12 +6,14 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import NoARealStoreToast from "./ThisIsNoARealStoreToast";
+import { useNotStoreToast } from "@/context/NotARealStoreContext";
 
 const pages = [
         {name:'Home', navigate:'/'},
         {name:'Shop', navigate:'/shop'},
-        {name:'Cart', navigate:'/cart'}
+        {name:'Cart', navigate:'/cart'},
+        {name:'Wishlist', navigate:'/wishlist'}
     ]
 
 function Nav() {
@@ -42,9 +44,9 @@ useEffect(() => {
     setAvatar(user?.avatar ?? "");
 }, [pathname]);
 
+const{isOpen} = useNotStoreToast()
 
-
-  return (
+  return (<>
     <nav className='h-16 bg-background text-foreground sm:flex hidden items-center justify-between px-13 fixed top-0 left-0 right-0 z-200'>
         <Link href={'/'}>
         <h1 className='text-3xl logoFont'><span className='text-primary un '>Un</span>store </h1>
@@ -53,7 +55,7 @@ useEffect(() => {
             <div className="flex items-center font-seimbold gap-4">
                 {pages.map((item)=>(
                     <Link href={item.navigate} key={item.name}>
-                    <h3 className="text-lg hover:text-primary cursor-pointer">
+                    <h3 className=" hover:text-primary cursor-pointer text-[1rem]  ">
                         {item.name}
                     </h3>
                     </Link>
@@ -74,9 +76,10 @@ useEffect(() => {
             </button>
             </div>
         </div>
-
+            
     </nav>
-  )
+    {isOpen && <NoARealStoreToast/>}
+  </>)
 }
 
 export default Nav

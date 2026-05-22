@@ -77,7 +77,7 @@ console.log("log:", log)
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
                   required
-                  className="w-full h-11 rounded-xl bg-input border border-border px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200"
+                  className="w-full h-11 rounded-md bg-input border border-border px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200"
                 />
               </div>
 
@@ -96,7 +96,7 @@ console.log("log:", log)
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="***********"
                     required
-                    className="w-full h-11 rounded-xl bg-input border border-border px-4 pr-11 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200"
+                    className="w-full h-11 rounded-md bg-input border border-border px-4 pr-11 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200"
                   />
                   <button
                     type="button"
@@ -132,7 +132,7 @@ console.log("log:", log)
               <button
                 type="submit"
                 disabled={loading}
-                className="hilight-tr w-full h-11 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 active:scale-[0.98] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2
+                className="hilight-tr w-full h-11 rounded-md bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 active:scale-[0.98] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2
                 cursor-pointer
                 "
                 onClick={handleSubmit}
