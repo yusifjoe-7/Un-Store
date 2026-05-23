@@ -1,8 +1,10 @@
 export type userType={
+  id:string,
     useName:string;
     email:string;
     password:string;
     avatar:string;
+    createdAt:string;
 
 }
 
@@ -66,4 +68,14 @@ export type Product = {
   warrantyInformation: string
 
   weight: number
+}
+
+export type item ={
+  id:string;
+  quantity:number;
+}
+
+export type cart={
+  UserId:string
+  items: item[]
 }

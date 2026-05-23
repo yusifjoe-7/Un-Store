@@ -6,6 +6,7 @@ import Nav from "@/components/Nav";
 import { ThemeProvider } from "next-themes";
 import BottomNav from "@/components/MobileNav";
 import { NotStoreToastProvider } from "@/context/NotARealStoreContext";
+import { LogoutToastProvider } from "@/context/logoutTostContext";
 
 const figtree = Figtree({
   subsets: ["latin"],
@@ -46,6 +47,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col w-full overflow-x-hidden">
+        <LogoutToastProvider>
         <NotStoreToastProvider>
         <ThemeProvider
           attribute="class"
@@ -57,6 +59,7 @@ export default function RootLayout({
           <BottomNav/>
         </ThemeProvider>
         </NotStoreToastProvider>
+        </LogoutToastProvider>
       </body>
     </html>
   );

@@ -13,7 +13,6 @@ const pages = [
         {name:'Home', navigate:'/'},
         {name:'Shop', navigate:'/shop'},
         {name:'Cart', navigate:'/cart'},
-        {name:'Wishlist', navigate:'/wishlist'}
     ]
 
 function Nav() {

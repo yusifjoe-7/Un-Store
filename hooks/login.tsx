@@ -68,7 +68,7 @@ const resC = await fetch(CartApi, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
-    userId: data.id,   // was: res.id ❌
+    UserId: data.id,   // was: res.id ❌
     items: [],
   }),
 });
@@ -103,4 +103,10 @@ const res = await fetch(`${API}?email=${email}`);
 console.log('res: ')
 console.log(res)
 return foundUser || null
+}
+
+export async function getUser(email:string){
+  const res = await fetch(`${API}?email=${email}`).then(res => res.json)
+  return res
+
 }

@@ -3,9 +3,10 @@
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import type { Product } from "@/types/types";
+import type { cart, Product, userType, item } from "@/types/types";
 import Barcode from 'react-barcode'
 import ProductDetailsSkeleton from "@/components/DetailsSkeleton";
+import { editCart, GetCart } from "@/hooks/cart";
 
 function StarRating({ rating, size = "sm" }: { rating: number; size?: "sm" | "lg" }) {
   const starSize = size === "lg" ? "w-5 h-5" : "w-4 h-4";
@@ -54,7 +55,42 @@ export default function ProductDetails() {
   const [qty, setQty] = useState(1);
   const [activeTab, setActiveTab] = useState<Tab>("specs");
   const [wishlist, setWishlist] = useState(false);
+ const[loadingC, setLoadingC]=useState(false)
+  
+const handleAdd = async () => {
+  console.log(1)
+  setLoadingC(true);
+  const user: userType = JSON.parse(localStorage.getItem("login") || "{}");
+  const cart: cart = await GetCart(user.id);
+  
+  const filtered: item[] = (cart.items ?? []).filter(
+    (item: item) => item.id === String(id)  // also ensure type match
+  );
 
+  if (filtered.length === 0) {
+    // Item not in cart → add it
+    const newCart: cart = {
+      ...cart,
+      items: [...(cart.items ?? []), { id: String(id), quantity: qty }],
+    };
+    await editCart(String(id), user.id, newCart);
+    console.log(2)
+  } else {
+    // Item already in cart → update quantity
+    const updatedCart: cart = {
+      ...cart,
+      items: cart.items.map((item: item) =>
+        item.id === String(id)
+          ? { ...item, quantity: item.quantity + qty }
+          : item
+      ),
+    };
+    await editCart(String(id), user.id, updatedCart);
+    console.log(3)
+  }
+
+  setLoadingC(false);
+};
   useEffect(() => {
     if (!id) return;
     setLoading(true);
@@ -66,6 +102,7 @@ export default function ProductDetails() {
       .then((data: Product) => {
         setProduct(data);
         setQty(data.minimumOrderQuantity ?? 1);
+        if(data.minimumOrderQuantity > data.stock) setQty(data.stock)
       })
       .catch(() => setError(true))
       .finally(() => setLoading(false));
@@ -94,7 +131,9 @@ export default function ProductDetails() {
   }
 
   const originalPrice = product.price / (1 - product.discountPercentage / 100);
-  const minQty = product.minimumOrderQuantity ?? 1;
+  const minQty = product.minimumOrderQuantity > product.stock? product.stock ?? 1 :product.minimumOrderQuantity ?? 1;
+
+  console.log(product)
 
   const ratingCounts = [0, 0, 0, 0, 0];
   product.reviews.forEach((r) => {
@@ -114,6 +153,10 @@ export default function ProductDetails() {
     { label: "Min. Order Qty", value: String(product.minimumOrderQuantity) },
     { label: "Stock", value: String(product.stock) },
   ];
+ 
+
+
+ 
 
   return (
     <div className="min-h-screen bg-background sm:mt-16 mb-16">
@@ -248,8 +291,21 @@ export default function ProductDetails() {
 
             {/* Actions */}
             <div className="flex gap-3">
-              <button className="cursor-pointer flex-1 bg-primary text-primary-foreground rounded-md py-2.5 text-sm font-medium hover:opacity-90 transition active:scale-[0.98]">
-                Add to cart
+              <button className="cursor-pointer flex-1 bg-primary text-primary-foreground 
+              flex items-center justify-center gap-2
+              rounded-md py-2.5 text-sm font-medium hover:opacity-90 transition active:scale-[0.98]"
+              onClick={handleAdd}
+              >
+                {loadingC ? (
+                  <>
+                    <svg className="animate-spin" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                    </svg>
+                    Adding in...
+                  </>
+                ) : (
+                  "Add To Cart"
+                )}
               </button>
               <button
                 onClick={() => setWishlist((w) => !w)}
