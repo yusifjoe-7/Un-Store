@@ -4,8 +4,11 @@ import { useLogoutToast } from "@/context/logoutTostContext";
 import { Button } from "./ui/button"
 import { userType } from "@/types/types";
 import { useRouter } from "next/navigation";
+import { useDoneToast } from "@/context/DoneToastContext";
 
 function LogoutToast({isDelete}:{isDelete:boolean}) {
+
+    const { showToast } = useDoneToast()
 
     const router = useRouter()
 
@@ -13,6 +16,8 @@ function LogoutToast({isDelete}:{isDelete:boolean}) {
         await localStorage.removeItem('login')
         setIsOpenL(false)
         router.push('/login')
+        showToast()
+
     }
 
     const handleDlete = async()=>{
@@ -31,6 +36,7 @@ function LogoutToast({isDelete}:{isDelete:boolean}) {
         await localStorage.removeItem('login')
         setIsOpenL(false)
         router.push('/login')
+        showToast()
 
     }
 
@@ -52,15 +58,15 @@ function LogoutToast({isDelete}:{isDelete:boolean}) {
             <p className="text-lg font-semibold"> are you sure </p>
             {isDelete &&<span>this action cannot be undone</span>}
 
-        <div className="flex items-center md:flex-row flex-col mt-7 md:gap-15 gap-3 px-5">
+        <div className="flex items-center md:flex-row flex-col mt-7 md:gap-15 md:gap-1 gap-3 px-5">
             <Button 
-            className="border-border bg-card border-2 hover:bg-backgroun cursor-pointer md:px-18 md:py-5 px-10 py-3 hover:border-destructive text-foreground md:order-1 order-2 "
+            className="border-border bg-card border-2 hover:bg-backgroun cursor-pointer md:px-15 md:py-5 px-10 py-3 hover:border-destructive text-foreground md:order-1 order-2 "
             onClick={()=>setIsOpenL(false)}
             >
             cancel
             </Button>
         <Button
-        className="border-destructive bg-destructive border-2 hover:bg-card cursor-pointer md:px-18 md:py-5 px-14 py-4 hover:text-foreground"
+        className="border-destructive bg-destructive border-2 hover:bg-card cursor-pointer md:px-15 md:py-5 px-14 py-4 hover:text-foreground"
         onClick={isDelete? handleDlete : handleLogout}
         >{isDelete?"delete":"logout"}</Button>
         </div>

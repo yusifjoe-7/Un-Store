@@ -76,6 +76,7 @@ export type item ={
 }
 
 export type cart={
+  id:string
   UserId:string
   items: item[]
 }

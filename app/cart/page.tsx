@@ -7,6 +7,9 @@ import CartCard from "@/components/CartCard";
 import type { Product, userType } from "@/types/types";
 import { GetCart } from "@/hooks/cart";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { CartItemToast } from "@/components/cartItemToast";
+import { useEditTost } from "@/context/changeContext";
 
 type CartItem = {
   id: string;
@@ -22,6 +25,7 @@ export default function CartPage() {
   const [items, setItems] = useState<EnrichedItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const{show}=useEditTost()
 
   useEffect(() => {
     async function loadCart() {
@@ -64,7 +68,7 @@ export default function CartPage() {
     }
 
     loadCart();
-  }, []);
+  }, [show]);
 
   // ——— Loading ———
   if (loading) {
@@ -94,7 +98,7 @@ export default function CartPage() {
   // ——— فاضية ———
   if (items.length === 0) {
     return (
-      <div className="flex flex-col gap-3 p-4 sm:px-30 w-full mt-16">
+      <div className="flex flex-col justify-center items-center gap-3 p-4 sm:px-30 w-full mt-16">
         <p className="text-2xl mb-2">🛒</p>
         <p className="text-lg font-medium">emty cart</p>
         <p className="text-sm text-muted-foreground mt-1">
@@ -114,18 +118,18 @@ export default function CartPage() {
           key={product.id}
           item={product}
           quantity={quantity}
-          onEdit={(id) => {
-            // هنا تفتح modal أو تروح لصفحة التعديل
-            console.log("edit:", id);
-          }}
+          
         />
       ))}
 
       <div className="fixed flex items-center justify-center left-0 right-0 md:bottom-5 bottom-20">
+        {!show && <Link href={'/check-out'}>
         <Button className="px-20 md:px-50 py-5 rounded-md shadow-lg cursor-pointer">
         Chick out
       </Button>
+      </Link>}
       </div>
+      {show && <CartItemToast />}
     </div>
   );
 }

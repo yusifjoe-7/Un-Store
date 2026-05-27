@@ -55,7 +55,7 @@ const [isDesktop, setIsDesktop] = useState(false);
         alt="jacket"
         width={500}
         height={500}
-        className='2xl:max-w-150 2xl:max-h-150 max-w-100 max-h-100'
+        className='2xl:max-w-150 2xl:max-h-150 md:max-w-100 md:max-h-100'
         />
        
          </div>

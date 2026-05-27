@@ -8,12 +8,32 @@ export const useCheckIfLogIn = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const local = localStorage.getItem("login");
+    const fr = async () => {
+      const user: user = JSON.parse(localStorage.getItem("login") || "{}");
 
-    if (!local) {
-      router.push("/login");
-    }
+      if (!user?.id) {
+        router.push("/login");
+        return false;
+      }
+
+      const res = await fetch(`https://69fe01f98c70b15fa3ca1479.mockapi.io/api/v1/users/${user.id}`);
+
+      if (!res.ok) {  // ✅ لو 500 أو أي error هيروح login
+        router.push("/login");
+        return false;
+      }
+
+      const get: user[] = await res.json();
+
+      if (!get || get.length === 0) {
+        router.push("/login");
+        return false
+      }
+    };
+
+    fr();
   }, [router]);
+  return true
 };
 type prop = {
   name: string;
@@ -46,10 +66,9 @@ export const signup = async ({
     const users = await checkEmail(email);
 console.log(2)
    
-    if (users && users[0].id) {
-      console.log(users, users[0].id)
-      return;
-    }
+    if (users.length > 0) {  // الإيميل موجود فعلاً
+  return; // email already exists
+}
 
     // create user 
 const res = await fetch(API, {

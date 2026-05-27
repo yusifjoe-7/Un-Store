@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { login } from "@/hooks/login";
+import { login, useCheckIfLogIn } from "@/hooks/login";
 import { useRouter } from "next/navigation";
+import { useDoneToast } from "@/context/DoneToastContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -12,15 +13,18 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
 const [error, setError]= useState(false)
 
+const {showToast}=useDoneToast()
+
 const router = useRouter()
  const handleKeyDown = (e:React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter'){
       handleSubmit
     }
   }
+const log = useCheckIfLogIn()
 
 useEffect(()=>{
- const log = localStorage.getItem('login')
+ 
  if(log)router.push('/')
 },[])
 
@@ -30,7 +34,6 @@ const handleSubmit = async () => {
     setError(false);
 
     const log = await login(email, password);
-console.log("log:", log)
     if (!log || !log.id) {
       setError(true);
       return;
@@ -39,6 +42,7 @@ console.log("log:", log)
     await localStorage.setItem("login", JSON.stringify(log));
 
     router.push("/");
+    showToast()
   } catch (err) {
     console.log(err);
     setError(true);

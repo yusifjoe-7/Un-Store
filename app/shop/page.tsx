@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { Product } from "@/types/types";
 import Card from "@/components/ui/Card";
 import CardSkeleton from "@/components/ui/CardSkeleton";
+import { useCheckIfLogIn } from "@/hooks/login";
 
 type Category = {
   slug: string;
@@ -22,6 +23,8 @@ export default function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loadingCats, setLoadingCats] = useState(true);
   const [loadingProducts, setLoadingProducts] = useState(false);
+
+  useCheckIfLogIn()
 
   useEffect(() => {
   fetch("https://dummyjson.com/products/categories")

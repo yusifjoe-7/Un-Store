@@ -3,14 +3,15 @@
 import Image from "next/image";
 import type { Product } from "@/types/types";
 import { useEffect, useRef, useState } from "react";
+import { useEditTost } from "@/context/changeContext";
 
 type CartCardProps = {
   item: Product;
   quantity: number;
-  onEdit: (id: number) => void;
+  
 };
 
-const CartCard = ({ item, quantity, onEdit }: CartCardProps) => {
+const CartCard = ({ item, quantity }: CartCardProps) => {
 
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -30,6 +31,14 @@ const CartCard = ({ item, quantity, onEdit }: CartCardProps) => {
   }, []);
 
   const originalPrice = item.price * (1 + item.discountPercentage / 100);
+
+  const{setProduct,setqtyD, openShow }= useEditTost()
+  const handleEdit = ()=>{
+    console.log('ee')
+    setProduct(item)
+    setqtyD(quantity)
+    openShow()
+  }
 
   return (
     <div
@@ -78,7 +87,7 @@ const CartCard = ({ item, quantity, onEdit }: CartCardProps) => {
         </div>
 
         <button
-        //   onClick={() => onEdit(item.id)}
+           onClick={handleEdit}
           className="flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg
                      border border-border hover:bg-secondary transition cursor-pointer"
         >

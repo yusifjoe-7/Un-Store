@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { signup } from "@/hooks/login";
 import { useRouter } from "next/navigation";
+import { useDoneToast } from "@/context/DoneToastContext";
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -23,6 +24,8 @@ const [nameshake, setNameShake] = useState(false);
 const [passwordShake, setPasswordShake] = useState(false);
 
 const[emailError, setEmailError]=useState(false)
+
+const {showToast} = useDoneToast()
 
 const triggerShake = (type: "name" | "password") => {
   if (type === "name") {
@@ -54,29 +57,30 @@ const router = useRouter()
    setLoading(true)
 
 const sign = await signup({ name, email, password })
-if(!sign){setEmailError(true)
-  setLoading(false)
-  return
-}
+// ✅ الصح
+if (sign !== "done") { setEmailError(true); setLoading(false); return; }
 
 const response = await fetch(
   `https://69fe01f98c70b15fa3ca1479.mockapi.io/api/v1/users?email=${email}`
 )
+console.log(response)
 
 const data = await response.json()
 
 if (data.length > 0) {
+  console.log('local')
   localStorage.setItem('login', JSON.stringify(data[0]))
 }
+console.log('after local')
 setLoading(false)
 router.push('/')
+showToast()
 
   };
 
   const handleKeyDown = (e:React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter'){
-      handleSubmit
-    }
+    if (e.key === 'Enter') { handleSubmit(e as any) }
+
   }
 
 

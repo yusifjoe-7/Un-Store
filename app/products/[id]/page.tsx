@@ -7,6 +7,8 @@ import type { cart, Product, userType, item } from "@/types/types";
 import Barcode from 'react-barcode'
 import ProductDetailsSkeleton from "@/components/DetailsSkeleton";
 import { editCart, GetCart } from "@/hooks/cart";
+import { useDoneToast } from "@/context/DoneToastContext";
+import { useCheckIfLogIn } from "@/hooks/login";
 
 function StarRating({ rating, size = "sm" }: { rating: number; size?: "sm" | "lg" }) {
   const starSize = size === "lg" ? "w-5 h-5" : "w-4 h-4";
@@ -56,12 +58,20 @@ export default function ProductDetails() {
   const [activeTab, setActiveTab] = useState<Tab>("specs");
   const [wishlist, setWishlist] = useState(false);
  const[loadingC, setLoadingC]=useState(false)
-  
+ 
+  const { showToast } = useDoneToast()
+
+  useCheckIfLogIn()
+
+
 const handleAdd = async () => {
-  console.log(1)
+  if(loadingC)return;
   setLoadingC(true);
   const user: userType = JSON.parse(localStorage.getItem("login") || "{}");
-  const cart: cart = await GetCart(user.id);
+  if (!user?.id) { setLoadingC(false); return; }
+
+  const cart: cart = (await GetCart(user.id))!;
+  
   
   const filtered: item[] = (cart.items ?? []).filter(
     (item: item) => item.id === String(id)  // also ensure type match
@@ -73,8 +83,8 @@ const handleAdd = async () => {
       ...cart,
       items: [...(cart.items ?? []), { id: String(id), quantity: qty }],
     };
-    await editCart(String(id), user.id, newCart);
-    console.log(2)
+    await editCart(cart.id, newCart);
+    showToast()
   } else {
     // Item already in cart → update quantity
     const updatedCart: cart = {
@@ -85,8 +95,8 @@ const handleAdd = async () => {
           : item
       ),
     };
-    await editCart(String(id), user.id, updatedCart);
-    console.log(3)
+    await editCart( user.id, updatedCart);
+    showToast()
   }
 
   setLoadingC(false);
@@ -294,6 +304,7 @@ const handleAdd = async () => {
               <button className="cursor-pointer flex-1 bg-primary text-primary-foreground 
               flex items-center justify-center gap-2
               rounded-md py-2.5 text-sm font-medium hover:opacity-90 transition active:scale-[0.98]"
+              style={{ cursor: loadingC ? "not-allowed" : "pointer" }}
               onClick={handleAdd}
               >
                 {loadingC ? (

@@ -39,7 +39,7 @@ const oragenalPrice = item.price * item.discountPercentage
       transform:visible? "translateY(0px)" : "translateY(40px)"
     }}
     onClick={() => router.push(`/products/${item.id}`)}>
-      <div className="absolute inset-0 top-0 bottom-0 left-0 right-0 hidden group-hover:flex items-center justify-center z-5 rounded-xl bg-card cursor-pointer transition opacity-0 hover:opacity-100 backdrop-blur-2xl"
+      <div className="absolute inset-0 top-0 bottom-0 left-0 right-0 flex items-center justify-center z-5 rounded-xl backdrop-blur-2xl cursor-pointer transition opacity-0 hover:opacity-100 "
       onClick={() => router.push(`/products/${item.id}`)}
       >
         click to see the details
