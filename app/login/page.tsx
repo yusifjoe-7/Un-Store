@@ -163,9 +163,9 @@ const handleSubmit = async () => {
         {/* Footer */}
         <p className="text-center text-xs text-muted-foreground mt-6 px-4">
           By signing in, you agree to our{" "}
-          <Link href="/" className="underline underline-offset-2 hover:text-foreground transition-colors">Terms</Link>
+          <Link href="/not-a-real-store" className="underline underline-offset-2 hover:text-foreground transition-colors">Terms</Link>
           {" "}and{" "}
-          <Link href="/" className="underline underline-offset-2 hover:text-foreground transition-colors">Privacy Policy</Link>
+          <Link href="/not-a-real-store" className="underline underline-offset-2 hover:text-foreground transition-colors">Privacy Policy</Link>
         </p>
       </div>
     </div>

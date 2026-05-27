@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 
 export default function NotAStorePage() {
@@ -32,13 +34,13 @@ export default function NotAStorePage() {
         This is not a real store
       </h1>
       <p className="text-muted-foreground text-sm mb-10">
-        Nothing to buy here. Move along.
+        Ther is no rules, so no sensitive information
       </p>
 
       {/* Back button */}
       <button
         onClick={() => router.back()}
-        className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/30 bg-primary/5 text-sm font-medium text-primary hover:bg-primary/10 transition-colors duration-200"
+        className="group inline-flex items-center cursor-pointer gap-2 px-5 py-2.5 rounded-full border border-primary/30 bg-primary/5 text-sm font-medium text-primary hover:bg-primary/10 transition-colors duration-200"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
