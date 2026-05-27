@@ -50,11 +50,12 @@ export default function ShopPage() {
   }, [selected]);
 
   return (
-    <div className="flex flex-col gap-6 p-6 sm:mt-16 w-full mb-16">
+    <div className="flex flex-col gap-6 py-6 sm:mt-16 w-full mb-16">
       {/* Categories Row */}
-      <div className="w-full py-5 rounded-md px-2 border-t-2 border-b-2 bg-muted border-muted-foreground">
+      <div className="w-full px-4">
+        <div className="w-full  py-5 rounded-md px-2 border-t-2 border-b-2 bg-muted border-muted-foreground">
         {loadingCats ? (
-        <div className="flex gap-2 flex-wrap pb-1">
+        <div className="flex gap-2 flex-wrap pb-1 ">
           {Array.from({ length: 8 }).map((_, i) => (
             <div
               key={i}
@@ -84,6 +85,7 @@ export default function ShopPage() {
         </div>
       )}
       </div>
+      </div>
 
       {/* Products Grid */}
       {!selected && (
@@ -104,7 +106,7 @@ export default function ShopPage() {
           </div>
 
           {loadingProducts ? (
-            <div className=" justify-center w-full flex flex-wrap gap-10 ">
+            <div className=" justify-center w-full flex flex-wrap gap-10">
               {Array.from({ length: 8 }).map((_, i) => (
                <CardSkeleton key={i}/>
               ))}
