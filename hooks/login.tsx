@@ -68,8 +68,8 @@ export const signup = async ({
     const users = await checkEmail(email);
 console.log(2)
    
-    if (users.length > 0) {  // الإيميل موجود فعلاً
-  return; // email already exists
+    if (users !== 'Not found') {
+    return; // email already exists
 }
 
     // create user 
