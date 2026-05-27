@@ -108,11 +108,11 @@ export default function BottomNav() {
               }}
               className="flex items-center gap-3 w-full px-4 py-2.5 hover:bg-muted transition-colors text-left"
             >
-              {mounted && theme === "dark" ? (
+              {mounted ? theme === "dark" ? (
                 <SunIcon className="w-4 h-4 text-muted-foreground" />
               ) : (
                 <MoonIcon className="w-4 h-4 text-muted-foreground" />
-              )}
+              ):null}
               <span className="text-sm font-medium text-foreground">Theme</span>
             </button>
 

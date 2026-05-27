@@ -13,14 +13,14 @@ export const useCheckIfLogIn = () => {
 
       if (!user?.id) {
         router.push("/login");
-        return false;
+        
       }
 
       const res = await fetch(`https://69fe01f98c70b15fa3ca1479.mockapi.io/api/v1/users/${user.id}`);
 
       if (!res.ok) {  // ✅ لو 500 أو أي error هيروح login
         router.push("/login");
-        return false;
+        
       }
 
       const get: user[] = await res.json();
@@ -29,11 +29,13 @@ export const useCheckIfLogIn = () => {
         router.push("/login");
         return false
       }
+
+      
     };
 
     fr();
   }, [router]);
-  return true
+  
 };
 type prop = {
   name: string;

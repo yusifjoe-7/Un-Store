@@ -20,7 +20,7 @@ export const DoneToast: React.FC<DoneToastProps> = ({ visible }) => {
         ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
       `}
     >
-      <span className="flex items-center justify-center w-5 h-5 rounded-full bg-green-5                                   00 flex-shrink-0">
+      <span className="flex items-center justify-center w-5 h-5 rounded-full bg-green-500 flex-shrink-0">
         <svg
           width="11"
           height="11"

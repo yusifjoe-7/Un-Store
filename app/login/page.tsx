@@ -21,12 +21,8 @@ const router = useRouter()
       handleSubmit
     }
   }
-const log = useCheckIfLogIn()
 
-useEffect(()=>{
- 
- if(log)router.push('/')
-},[])
+
 
 const handleSubmit = async () => {
   try {
