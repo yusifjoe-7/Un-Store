@@ -46,7 +46,7 @@ useEffect(() => {
 const{isOpen} = useNotStoreToast()
 
   return (<>
-    <nav className='h-16 bg-background text-foreground sm:flex hidden items-center justify-between px-13 fixed top-0 left-0 right-0 z-200'>
+    <nav className='h-16 bg-background text-foreground sm:flex hidden items-center justify-between px-13 fixed top-0 left-0 right-0 border-b-2 bprder-border rounded-b-2xl z-200'>
         <Link href={'/'}>
         <h1 className='text-3xl logoFont'><span className='text-primary un '>Un</span>store </h1>
         </Link>
