@@ -471,7 +471,7 @@ export default function CheckoutPage() {
 
           {/* Left — payment placeholder */}
           <div className="flex items-center justify-center text-[var(--muted-foreground)] text-sm italic select-none">
-            imagine that you putting your card info here
+            imagine that you are putting your card info here
           </div>
 
           {/* Right — cart + summary */}
